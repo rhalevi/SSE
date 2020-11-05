@@ -1,0 +1,30 @@
+<html>
+<head>
+<script>
+
+function getStream(){
+
+    const evtSource = new EventSource("/stream");
+    evtSource.onmessage= (evtMsg)=>{
+        let text = evtMsg.data
+        console.log(text)
+        document.getElementById("messages").innerHTML+= text+"\r\n"
+        document.getElementById("counter").innerText=  JSON.parse(text).counter
+
+    }
+ 
+}
+
+
+
+
+</script>
+
+</head>
+<div id="root" style="display: block;">
+
+    <span id="counter" style="width: 100px; height: 30px; font-size: 14px; background-color: greenyellow; display: block"></span>
+    <textarea title="Click the text area to start getting messages" id="messages" onclick="getStream();" style="width: 50%; height: 50%;"></textarea>
+
+</div>
+</html>
